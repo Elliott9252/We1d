@@ -1,79 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ProWeld Metal Works | Fences, Pens & Shops</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProWeld Metal Works | Fences, Pens & Shops</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Arial', sans-serif; 
+            line-height: 1.6; 
+            color: #333;
+            overflow-x: hidden;
+        }
 
-<style>
-body { margin:0; font-family: Arial, sans-serif; background:#111; color:#fff; }
-header { background:#ff6b35; padding:1rem; text-align:center; font-size:1.8rem; font-weight:bold; }
-nav { text-align:center; padding:1rem; background:#222; }
-nav a { color:white; margin:0 1rem; text-decoration:none; }
+        /* Background Images */
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 600'%3E%3Crect width='1200' height='600' fill='%23333'/%3E%3Ctext x='600' y='300' font-size='120' text-anchor='middle' fill='%23ff6b35' font-weight='bold'%3E%F0%9F%94%A5 WELDING SHOP%3C/text%3E%3C/svg%3E");
+            background-size: cover; background-position: center;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white;
+        }
+        #services-shop { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 400'%3E%3Crect width='1200' height='400' fill='%23222'/%3E%3Ctext x='600' y='200' font-size='80' text-anchor='middle' fill='%23ff6b35'%3E%F0%9F%8F%87 METAL SHOP BUILD%3C/text%3E%3C/svg%3E"); }
+        #services-pens { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 400'%3E%3Crect width='1200' height='400' fill='%23202040'/%3E%3Ctext x='600' y='200' font-size='80' text-anchor='middle' fill='%23fff'%3E%F0%9F%90%84 CATTLE PENS%3C/text%3E%3C/svg%3E"); }
+        #services-fence { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 400'%3E%3Crect width='1200' height='400' fill='%23404020'/%3E%3Ctext x='600' y='200' font-size='80' text-anchor='middle' fill='%23ffaa00'%3E%F0%9F%9A%A7 PIPE FENCING%3C/text%3E%3C/svg%3E"); }
 
-.hero { padding:5rem 2rem; text-align:center; }
-.hero h1 { font-size:3rem; }
-.hero button { padding:1rem 2rem; background:#ff6b35; border:none; color:white; font-size:1.2rem; cursor:pointer; }
+        header { 
+            background: linear-gradient(135deg, #ff6b35, #f7931e); 
+            padding: 1rem 0; 
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        nav { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        nav h1 { font-size: 1.8rem; color: white; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; padding: 0.5rem 1rem; border-radius: 5px; transition: all 0.3s; }
+        .nav-links a:hover { background: rgba(255,255,255,0.2); }
 
-.section { padding:3rem 2rem; max-width:1000px; margin:auto; }
-.card { background:#222; padding:1.5rem; margin:1rem 0; border-left:5px solid #ff6b35; }
+        /* Dropdown Menu */
+        .dropdown { position: relative; }
+        .dropdown-btn { background: none; border: none; color: white; font-size: 1rem; cursor: pointer; padding: 0.5rem 1rem; }
+        .dropdown-content { 
+            display: none; position: absolute; right: 0; top: 100%; background: #222; min-width: 250px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3); border-radius: 8px; z-index: 1000;
+            opacity: 0; transform: translateY(-10px); transition: all 0.3s;
+        }
+        .dropdown:hover .dropdown-content { display: block; opacity: 1; transform: translateY(0); }
+        .dropdown-content a { display: block; padding: 1rem 1.5rem; color: #fff; text-decoration: none; border-bottom: 1px solid #333; }
+        .dropdown-content a:hover { background: #ff6b35; }
+        .dropdown-content a:last-child { border-bottom: none; }
 
-footer { text-align:center; padding:2rem; background:#000; font-size:0.9rem; }
-</style>
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.4rem; margin-bottom: 2rem; }
+        .btn { padding: 1.2rem 2.5rem; background: linear-gradient(135deg, #ff6b35, #f7931e); border: none; color: white; font-size: 1.2rem; cursor: pointer; border-radius: 50px; font-weight: bold; transition: all 0.3s; box-shadow: 0 5px 15px rgba(255,107,53,0.4); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255,107,53,0.5); }
+
+        .section { padding: 5rem 2rem; max-width: 1200px; margin: auto; position: relative; }
+        .section h2 { font-size: 2.8rem; text-align: center; margin-bottom: 3rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .card { 
+            background: rgba(255,255,255,0.95); color: #333; padding: 2.5rem; border-radius: 15px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2); backdrop-filter: blur(10px);
+            transform: translateY(20px); transition: all 0.4s;
+        }
+        .card:hover { transform: translateY(0); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+        .card h3 { font-size: 1.8rem; margin-bottom: 1rem; color: #ff6b35; }
+
+        #projects { background: linear-gradient(135deg, #1a1a1a, #2d2d2d); color: white; }
+        #projects .card { background: rgba(34,34,34,0.9); color: white; }
+        #projects .card h3 { color: #ffaa00; }
+
+        #contact { background: linear-gradient(135deg, #ff6b35, #f7931e); color: white; text-align: center; }
+        #contact h2 { margin-bottom: 1rem; }
+        #contact p { font-size: 1.3rem; margin-bottom: 2rem; }
+
+        footer { background: #000; color: #aaa; text-align: center; padding: 2rem; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .nav-links { flex-direction: column; gap: 1rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .cards { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-
 <body>
+    <header>
+        <nav>
+            <h1>🔥 ProWeld Metal Works</h1>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li class="dropdown">
+                    <span class="dropdown-btn">More ▼</span>
+                    <div class="dropdown-content">
+                        <a href="#contact">Get Quote</a>
+                        <a href="tel:+15555555555">📞 Call (555) 555-5555</a>
+                        <a href="mailto:youremail@email.com">✉️ Email Us</a>
+                        <a href="#">Welding Tips</a>
+                        <a href="#">Steel Prices</a>
+                        <a href="#">Gallery</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-<header>🔥 ProWeld Metal Works</header>
+    <section class="hero" id="home">
+        <div>
+            <h1>Custom Welding Fabrication</h1>
+            <p>Heavy Duty Metal Shops • Livestock Pens • Ranch Fencing<br><strong>Built to Last • Farm & Ranch Specialists</strong></p>
+            <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Free Quote Today</button>
+        </div>
+    </section>
 
-<nav>
-<a href="#services">Services</a>
-<a href="#projects">Projects</a>
-<a href="#contact">Contact</a>
-</nav>
+    <section id="services" class="section">
+        <h2>Our Services</h2>
+        <div class="cards">
+            <div class="card" id="services-shop">
+                <h3>🏭 Metal Workshops</h3>
+                <p><strong>20x30 to 60x100 Shops</strong><br>MIG/TIG frame welding, I-beam trusses, 14ga siding, overhead doors, concrete ready. Turnkey shop builds from the ground up.</p>
+            </div>
+            <div class="card" id="services-pens">
+                <h3>🐄 Animal Pens</h3>
+                <p><strong>Cattle • Horses • Hogs</strong><br>2x3 tube steel panels, squeeze chutes, round pens, galvanized gates. Heavy duty for working livestock daily.</p>
+            </div>
+            <div class="card" id="services-fence">
+                <h3>🚧 Fencing Systems</h3>
+                <p><strong>Pipe & Cable • High Tensile</strong><br>Ranch gates, corner braces, arena panels, 6-12ft security fence. Custom fabrication for any terrain.</p>
+            </div>
+        </div>
+    </section>
 
-<section class="hero">
-<h1>Custom Welding & Metal Fabrication</h1>
-<p>Shops • Animal Pens • Fencing</p>
-<button onclick="document.getElementById('contact').scrollIntoView()">Get Quote</button>
-</section>
+    <section id="projects" class="section">
+        <h2>Recent Projects</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>40x60 Steel Workshop</h3>
+                <p>Clear span truss design, 2-12x12 overhead doors, LED lighting package, ready for concrete pour.</p>
+            </div>
+            <div class="card">
+                <h3>Cattle Working Facility</h3>
+                <p>60ft sweep tub, 10 sorting pens, hydraulic squeeze chute, 8ft loadout alley. All 2x3 tube construction.</p>
+            </div>
+            <div class="card">
+                <h3>5-Acre Ranch Fence</h3>
+                <p>Pipe & high tensile wire, 16ft mag gates, H-brace corners every 132ft. Built for horses & cattle.</p>
+            </div>
+        </div>
+    </section>
 
-<section id="services" class="section">
-<h2>Services</h2>
+    <section id="contact" class="section">
+        <h2>Ready For Your Project?</h2>
+        <p><strong>Free Quotes • Local Steel • Fast Turnaround</strong></p>
+        <div style="font-size: 1.5rem; margin: 2rem 0;">
+            📞 <strong>(555) 555-5555</strong><br>
+            ✉️ <strong>youremail@email.com</strong>
+        </div>
+        <button class="btn" onclick="window.location.href='tel:+15555555555'">Call Now</button>
+    </section>
 
-<div class="card">
-<h3>🏭 Metal Shops</h3>
-<p>Custom workshops built tough with steel frames and long-lasting materials.</p>
-</div>
+    <footer>
+        <p>🔥 ProWeld Metal Works | Licensed & Insured | Serving Farms & Ranches Since 2015<br>
+        Custom Welding for Metal Shops, Animal Pens & Fencing Solutions</p>
+    </footer>
 
-<div class="card">
-<h3>🐄 Animal Pens</h3>
-<p>Durable cattle, horse, and livestock enclosures built to handle real work.</p>
-</div>
+    <script>
+        // Smooth scrolling for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth', block: 'start'
+                });
+            });
+        });
 
-<div class="card">
-<h3>🚧 Fencing</h3>
-<p>Pipe fencing, ranch gates, and perimeter security solutions.</p>
-</div>
-
-</section>
-
-<section id="projects" class="section">
-<h2>Recent Work</h2>
-<div class="card">40x60 Steel Workshop</div>
-<div class="card">Cattle Corral System</div>
-<div class="card">5 Acre Fence Install</div>
-</section>
-
-<section id="contact" class="section">
-<h2>Get a Free Quote</h2>
-<p>Call or text: (555) 555-5555</p>
-<p>Email: youremail@email.com</p>
-</section>
-
-<footer>
-ProWeld Metal Works © 2026
-</footer>
-
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'linear-gradient(135deg, rgba(255,107,53,0.95), rgba(247,147,30,0.95))';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #ff6b35, #f7931e)';
+            }
+        });
+    </script>
 </body>
 </html>
